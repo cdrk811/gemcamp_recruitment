@@ -1,0 +1,35 @@
+<section class="devise">
+  <div class="container vh-100">
+    <h2 class="mb-5">
+      <i class="icon-logo font-30"></i>
+      <%= t('devise.sessions.new.sign_in') %>
+    </h2>
+
+    <%= form_for resource,
+                 as: resource_name, url: user_session_path,
+                 data: { turbo: false, controller: 'devise-form' },
+                 html: { class: 'shadow p-4 bg-white' } do |f| %>
+      <div class="field mb-3">
+        <%= f.label :username, class: 'form-label' %>
+        <%= f.text_field :username, autofocus: true, autocomplete: 'username', class: 'form-control' %>
+      </div>
+      <div class="field mb-3">
+        <%= f.label :password, class: 'form-label' %>
+        <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
+      </div>
+      <% if devise_mapping.rememberable? %>
+        <div class="field mb-3 form-check">
+          <%= f.check_box :remember_me, class: 'form-check-input' %>
+          <%= f.label :remember_me, class: 'form-check-label' %>
+        </div>
+      <% end %>
+      <div class="actions text-center">
+        <%= f.submit t('devise.sessions.new.sign_in'), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-5">
+      <%= link_to t('devise.registrations.new.sign_up'), new_user_registration_path %>
+    </div>
+  </div>
+</section>

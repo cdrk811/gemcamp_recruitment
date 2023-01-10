@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root to: 'home#index', as: :user_root
+  devise_for :users, path: :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
 end

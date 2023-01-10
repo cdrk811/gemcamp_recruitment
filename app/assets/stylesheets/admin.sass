@@ -1,0 +1,122 @@
+a
+  text-decoration: none
+  &:hover
+    text-decoration: none
+
+ul
+  padding-left: 0.25rem !important
+
+.admin-navbar
+  height: 70px !important
+
+.admin-sidebar-menu
+  line-height: 1
+  width: 175px
+  height: calc(100vh - 70px)
+  .menu
+    a
+      span
+        color: #aaaaaa
+
+.flash
+  margin-left: -0.75rem
+  margin-right: -0.75rem
+  .alert
+    border-radius: 0
+
+.per-page-dropdown
+  display: inline-block
+  position: relative
+  margin: auto 3px
+
+  button
+    background-color: white
+    color: #1d4ed8
+    padding: 0.6rem
+    display: inline-flex
+    align-items: center
+    border-width: 1px
+    border-color: #d4d4d8
+    line-height: 1.25rem
+
+    &:hover
+      background-color: #e4e4e7
+
+    span
+      margin-right: 0.25rem
+
+    i
+      fill: #1a1818
+      height: 1rem
+      width: 1rem
+
+
+  .dropdown-menu
+    position: absolute
+    display: none
+    color: #1d4ed8
+    bottom: 0px
+    left: 0px
+    transform: translateY(-2.6rem)
+    width: 100%
+    text-align: center
+    border: 1px solid #d4d4d8
+
+    li
+      background-color: white
+      padding: 0.5rem
+      border-width: 1px
+      &:hover
+        background-color: #e4e4e7
+        display: block
+        white-space: nowrap
+
+      a
+        display: block
+
+.per-page-dropdown:hover
+  .dropdown-menu
+    display: block
+
+.pagination
+  display: flex
+
+  .current
+    background-color: #0000ff
+    padding: 0.5rem 0.9rem
+    color: #ffffff
+    &:hover
+      background-color: #0000ff
+
+  span
+    border: 1px solid #d4d4d8
+    &:hover
+      background-color: #e4e4e7
+
+    a
+      padding: 0.5rem 0.75rem
+      display: block
+/*
+ * div table
+ */
+.div-table
+  .col
+    border: 0.5px solid
+    border-color: var(--bs-border-color)
+  .table-dark
+    background-color: var(--bs-table-bg)
+.table > .tbody
+  vertical-align: inherit
+.table > .thead
+  vertical-align: bottom
+.table-striped > .tbody > .tr:nth-of-type(odd) > *
+  --bs-table-accent-bg: var(--bs-table-striped-bg)
+  color: var(--bs-table-striped-color)
+.table-hover > .tbody > .tr:hover > *
+  --bs-table-accent-bg: var(--bs-table-hover-bg)
+  color: var(--bs-table-hover-color)
+
+.w-screen
+  width: 100vw
+.h-screen
+  height: calc(100vh - 70px)

@@ -1,0 +1,3 @@
+<H2> Hi <%= current_user.username %>, This is User index page</H2>
+
+<%= link_to t('devise.sessions.sign_out'), destroy_user_session_path, data: { turbo_method: :delete } %>
