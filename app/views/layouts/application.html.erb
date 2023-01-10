@@ -11,6 +11,17 @@
   </head>
 
   <body>
-    <%= yield %>
+  <div class="container-fluid">
+    <div class="row">
+      <% if current_user %>
+        <%= render 'layouts/users/navbar' %>
+        <%= render 'layouts/users/sidebar' %>
+      <% end %>
+      <div class="col m-3">
+        <%= render 'layouts/users/flash' %>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
   </body>
 </html>

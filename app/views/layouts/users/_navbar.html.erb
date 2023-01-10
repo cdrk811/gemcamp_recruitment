@@ -1,0 +1,27 @@
+<nav class="admin-navbar navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class="container-fluid d-flex">
+    <%= link_to 'GemCamp Recruitment', user_root_path, class: 'navbar-brand fs-5' %>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <%= link_to current_user.username, 'javascript:void(0)', class: 'nav-link active dropdown-toggle mx-2', data: { bs_toggle: 'dropdown' } %>
+          <ul class="dropdown-menu">
+            <li>
+              <% # 个人设置 %>
+              <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                <%= t('view.common.settings') %>
+              <% end %>
+            </li>
+            <li>
+              <% # 登出 %>
+              <%= link_to destroy_user_session_path, class: "dropdown-item",
+                          data: { turbo_method: :delete }, title: t('devise.sessions.sign_out') do %>
+                <%= t('devise.sessions.sign_out') %>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

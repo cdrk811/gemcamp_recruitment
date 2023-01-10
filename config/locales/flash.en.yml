@@ -1,0 +1,11 @@
+en:
+  applicants:
+    create:
+      notice: Created successfully
+      alert: Create failed
+    update:
+      notice: Updated successfully
+      alert: Update failed
+    destroy:
+      notice: Delete successfully
+      alert: Delete failed

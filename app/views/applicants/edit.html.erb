@@ -1,0 +1,8 @@
+<h3>Edit Applicant</h3>
+<%= render 'form', applicant: @applicant,
+           url: applicant_path,
+           method: :patch,
+           submit_text: 'Update' %>
+<p>
+  <%= link_to 'Back', applicants_path, class: 'btn btn-secondary' %>
+</p>
