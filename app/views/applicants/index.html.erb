@@ -1,0 +1,38 @@
+<div class="flex-title">
+  <h3>Applicant Details</h3>
+  <%= link_to 'New', new_applicant_path, class: 'btn-sm btn btn-primary' %>
+</div>
+<br>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="table table-bordered table-striped table-hover text-center">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Contact No.</th>
+      <th>Application Date</th>
+      <th>Interview/Text Date</th>
+      <th>Status</th>
+      <th>Remarks</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @applicants.each do |applicant| %>
+      <tr>
+        <td><%= applicant.name %></td>
+        <td><%= applicant.phone %></td>
+        <td><%= applicant.created_at.strftime('%B %d, %Y') %></td>
+        <td><%= applicant.interview_date %></td>
+        <td><%= applicant.status %></td>
+        <td><%= applicant.remarks %></td>
+        <td><%= applicant.email %></td>
+        <td>
+          <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn-sm btn btn-success' %>
+          <%= link_to 'Delete', applicant_path(applicant), data: { 'turbo-method': :delete, 'turbo_confirm': t('view.common.delete_confirm') }, class: 'btn-sm btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

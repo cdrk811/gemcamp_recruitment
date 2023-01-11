@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      applicant:
+        one: Applicant
+        other: Applicants
+      user:
+        one: User
+        other: Users
+    attributes:
+      applicant:
+        name: Name
+        phone: Phone
+        created_at: Application Date
+        interview_date: Interview Date
+        status: Status
+        remarks: Remarks
+        email: Email
