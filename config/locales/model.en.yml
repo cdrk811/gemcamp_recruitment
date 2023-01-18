@@ -7,30 +7,12 @@ en:
       user:
         one: User
         other: Users
-      batch:
-        one: Batch
-        other: Batches
-      batch_applicant:
-        one: Batch Applicant
-        other: Batch Applicants
     attributes:
       applicant:
         name: Name
         phone: Phone
         created_at: Application Date
         interview_date: Interview Date
-        email: Email
-      batch:
-        batch: Batch No.
-        status: Status
-      batch/status:
-        open: Open
-        close: Close
-      batch_applicant:
         status: Status
         remarks: Remarks
-      batch_applicant/status:
-        pending: Pending
-        passed: Passed
-        declined: Declined
-        failed: Failed
+        email: Email

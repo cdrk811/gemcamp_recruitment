@@ -17,7 +17,7 @@ class ApplicantsController < ApplicationController
       flash[:notice] = t('.notice')
       redirect_to applicants_path
     else
-      flash[:alert] = "#{t('.alert')}：#{@applicant.errors.full_messages.join('，')}"
+      flash[:alert] = "#{t('.error')}：#{@applicant.errors.full_messages.join('，')}"
       render :new
     end
   end
@@ -29,7 +29,7 @@ class ApplicantsController < ApplicationController
       flash[:notice] = t('.notice')
       redirect_to applicants_path
     else
-      flash[:alert] = "#{t('.alert')}：#{@applicant.errors.full_messages.join('，')}"
+      flash[:alert] = "#{t('.error')}：#{@applicant.errors.full_messages.join('，')}"
       render :edit
     end
   end

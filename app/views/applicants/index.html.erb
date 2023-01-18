@@ -23,9 +23,9 @@
         <td><%= applicant.name %></td>
         <td><%= applicant.phone %></td>
         <td><%= applicant.created_at.strftime('%B %d, %Y') %></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= applicant.interview_date %></td>
+        <td><%= applicant.status %></td>
+        <td><%= applicant.remarks %></td>
         <td><%= applicant.email %></td>
         <td>
           <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn-sm btn btn-success' %>
