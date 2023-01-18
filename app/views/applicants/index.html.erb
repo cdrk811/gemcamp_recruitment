@@ -10,9 +10,6 @@
       <th>Name</th>
       <th>Contact No.</th>
       <th>Application Date</th>
-      <th>Interview/Text Date</th>
-      <th>Status</th>
-      <th>Remarks</th>
       <th>Email</th>
       <th>Action</th>
     </tr>
@@ -23,9 +20,6 @@
         <td><%= applicant.name %></td>
         <td><%= applicant.phone %></td>
         <td><%= applicant.created_at.strftime('%B %d, %Y') %></td>
-        <td><%= applicant.interview_date %></td>
-        <td><%= applicant.status %></td>
-        <td><%= applicant.remarks %></td>
         <td><%= applicant.email %></td>
         <td>
           <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn-sm btn btn-success' %>

@@ -12,21 +12,11 @@
   </div>
 
   <div class="form-group">
-    <%= f.label Applicant.human_attribute_name(:interview_date) %>
-    <%= f.date_field :interview_date, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label Applicant.human_attribute_name(:remarks) %>
-    <%= f.text_area :remarks, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
     <%= f.label Applicant.human_attribute_name(:email) %>
     <%= f.email_field :email, class: 'form-control' %>
   </div>
 
-  <div class="form-group">
-    <%= f.submit submit_text, class: 'btn btn-secondary' %>
+  <div class="form-group mt-2">
+    <%= f.submit submit_text, class: 'btn-sm btn btn-secondary' %>
   </div>
 <% end %>
