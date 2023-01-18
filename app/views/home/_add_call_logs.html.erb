@@ -1,0 +1,23 @@
+<div class="modal fade" id="addDate_<%= batch_applicant.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <%= form_for call_log, url: add_call_log_path, method: :post, data: { turbo: false }, html: { class: 'form' } do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.hidden_field :batch_applicant_id, value: batch_applicant.id %>
+            <%= f.label :interview_date, BatchApplicant.human_attribute_name(:interview_date), class: 'form-label text-bold' %>:
+            <%= f.datetime_field :interview_date, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :remarks, BatchApplicant.human_attribute_name(:remarks), class: 'form-label text-bold' %>:
+            <%= f.text_area :remarks, rows: '5', class: 'form-control', placeholder: BatchApplicant.human_attribute_name(:remarks) %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= link_to t('view.common.cancel'), 'javascript:void(0)', class: 'btn-sm btn btn-secondary text-white', data: { bs_dismiss: :modal } %>
+          <%= f.submit t('view.common.save'), class: 'btn-sm btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

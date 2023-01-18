@@ -3,3 +3,7 @@ en:
     common:
       action: Action
       delete_confirm: Are you sure you want to delete?
+      cancel: Cancel
+      update: Update
+      save: Save
+      new: New
