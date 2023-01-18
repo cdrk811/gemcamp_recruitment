@@ -1,0 +1,8 @@
+<h3>Edit Batch</h3>
+<%= render 'form', batch: @batch,
+           url: batch_path,
+           method: :patch,
+           submit_text: 'Update' %>
+<p>
+  <%= link_to 'Back', batches_path, class: 'btn btn-secondary' %>
+</p>

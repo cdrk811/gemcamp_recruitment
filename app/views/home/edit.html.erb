@@ -1,0 +1,12 @@
+<%= turbo_frame_tag dom_id(@batch_applicant, :remarks) do %>
+  <%= form_with model: @batch_applicant, url: home_path(@batch_applicant), method: :put, data: { turbo: false }, html: { class: 'form' } do |f| %>
+    <div class="modal-body">
+      <div class="form-group">
+        <%= f.text_area :remarks, rows: '5', class: 'form-control', placeholder: BatchApplicant.human_attribute_name(:remarks) %>
+      </div>
+    </div>
+    <div class="modal-footer mt-2">
+      <%= f.submit t('view.common.save'), class: 'btn-sm btn btn-primary' %>
+    </div>
+  <% end %>
+<% end %>

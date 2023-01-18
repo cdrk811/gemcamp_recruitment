@@ -1,0 +1,8 @@
+<h3>New Applicant</h3>
+<%= render 'form', applicant: @applicant,
+           url: home_index_path,
+           method: :post,
+           submit_text: 'Create' %>
+<p>
+  <%= link_to 'Back', user_root_path, class: 'btn btn-secondary' %>
+</p>

@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import Users__SidebarController from "./users/sidebar_controller"
 application.register("users--sidebar", Users__SidebarController)
+
+import TooltipController from "./tooltip_controller"
+application.register("tooltip", TooltipController)
