@@ -6,6 +6,6 @@ class Batch < ApplicationRecord
   enum status: { open: 0, close: 1 }
 
   def self.batch_status
-    where(status: 0).pluck(:id)
+    open.pluck(:id)
   end
 end

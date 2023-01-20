@@ -59,10 +59,12 @@
         </td>
         <td>
           <% if batch_applicant.remarks.present? %>
-            <%= link_to 'javascript:void(0)', data: { bs_toggle: :modal, bs_target: "#addRemarks_#{batch_applicant.id}"} do %>
-              <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= batch_applicant.remarks %>">
-                <%= batch_applicant.remarks[0, 10] %>...
-              </span>
+            <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
+              <%= link_to edit_home_path(batch_applicant) do %>
+                <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= batch_applicant.remarks %>">
+                  <%= batch_applicant.remarks[0, 10] %>...
+                </span>
+              <% end %>
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
