@@ -9,3 +9,30 @@ en:
     destroy:
       notice: Delete successfully
       alert: Delete failed
+  batches:
+    create:
+      notice: Created successfully
+      alert: Create failed
+    update:
+      notice: Updated successfully
+      alert: Update failed
+    destroy:
+      notice: Delete successfully
+      alert: Delete failed
+  home:
+    create:
+      notice: Created successfully
+      alert: Create failed
+    update:
+      notice: Updated successfully
+      alert: Update failed
+    destroy:
+      notice: Delete successfully
+      alert: Delete failed
+  call_logs:
+    create:
+      notice: Created successfully
+      alert: Create failed
+    update:
+      notice: Updated successfully
+      alert: Update failed

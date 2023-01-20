@@ -1,0 +1,84 @@
+<div class="flex-title" data-controller="tooltip">
+  <h3>Applicant Details</h3>
+  <%= link_to t('view.common.new'), new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
+</div>
+<br>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="table table-bordered table-striped table-hover text-center">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Contact No.</th>
+      <th>Email</th>
+      <th>Application Date</th>
+      <th>Interview/Text Date</th>
+      <th>Status</th>
+      <th>Remarks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @batch_applicants.each do |batch_applicant| %>
+      <tr>
+        <td><%= batch_applicant.applicant.name %></td>
+        <td><%= batch_applicant.applicant.phone %></td>
+        <td><%= batch_applicant.applicant.email %></td>
+        <td>
+          <%= batch_applicant.created_at.strftime('%B %d, %Y') %>
+        </td>
+        <td>
+          <% call_logs = batch_applicant.call_logs %>
+
+          <% if call_logs.present? %>
+            <span class="badge bg-<%= change_color(call_logs) %>">
+              <%= call_logs.count %>
+            </span>
+            <% last_three_call_logs = call_logs.last(3).map { |date| date.interview_date.strftime('%B %d, %Y') }.join("\n") %>
+            <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= last_three_call_logs %>">
+              <%= call_logs.last.interview_date.strftime('%B %d, %Y') %>
+            </span>
+          <% end %>
+
+          <%= link_to 'javascript:void(0)', class: 'btn-sm btn-sm btn btn-success', data: { bs_toggle: :modal, bs_target: "#addDate_#{batch_applicant.id}" } do %>
+            <i class="bi bi-plus-lg"></i>
+          <% end %>
+          <% if call_logs.present? %>
+            <%= link_to 'javascript:void(0)', class: 'btn-sm btn-sm btn btn-warning', data: { bs_toggle: :modal, bs_target: "#updateDate_#{call_logs.last.id}" } do %>
+              <i class="bi bi-pencil"></i>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= form_with model: batch_applicant, url: batch_applicant_path(batch_applicant), method: :patch do |f| %>
+            <div class="d-flex">
+              <%= f.select :status,
+                           options_for_select(BatchApplicant.aasm.states_for_select, batch_applicant.status),
+                           { prompt: t('view.common.all') },
+                           { class: 'form-control text-center', onchange: 'this.form.submit()' } %>
+            </div>
+          <% end %>
+        </td>
+        <td>
+          <% if batch_applicant.remarks.present? %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
+              <%= link_to edit_batch_applicant_path(batch_applicant) do %>
+                <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= batch_applicant.remarks %>">
+                  <%= batch_applicant.remarks[0, 10] %>...
+                </span>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
+              <%= link_to 'Add Remarks', edit_batch_applicant_path(batch_applicant), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+
+      <%= render 'batch_applicants/add_call_logs', call_log: @call_log, batch_applicant: batch_applicant %>
+      <% if call_logs.present? %>
+        <%= render 'batch_applicants/update_call_logs', batch_applicant: batch_applicant, call_logs: call_logs, call_log: call_logs.last %>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>
