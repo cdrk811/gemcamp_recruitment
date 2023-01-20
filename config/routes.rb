@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
-  root to: 'home#index', as: :user_root
+  root to: 'batch_applicants#index', as: :user_root
   devise_for :users, path: :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
-  resources :home, only: %i[new create edit update] do
-    put :update_call_log, on: :member
-  end
-  scope controller: :home do
-    post :add_call_log
+  resources :batch_applicants, only: %i[new create edit update] do
+    resources :call_logs, only: %i[create update]
   end
   resources :applicants, except: :show
   resources :batches, except: :show

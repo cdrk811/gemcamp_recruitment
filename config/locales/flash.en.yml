@@ -29,9 +29,10 @@ en:
     destroy:
       notice: Delete successfully
       alert: Delete failed
-    add_call_log:
-      notice: Add successfully
-      alert: Add failed
-    update_call_log:
+  call_logs:
+    create:
+      notice: Created successfully
+      alert: Create failed
+    update:
       notice: Updated successfully
       alert: Update failed

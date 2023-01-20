@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
+class BatchApplicantsController < ApplicationController
   before_action :set_batch_applicant, only: %i[edit update]
 
   def index
@@ -35,26 +35,6 @@ class HomeController < ApplicationController
     redirect_to user_root_path
   end
 
-  def add_call_log
-    @call_log = CallLog.new(params_call_log)
-    if @call_log.save
-      flash[:notice] = t('.notice')
-    else
-      flash[:alert] = "#{t('.alert')}：#{@call_log.errors.full_messages.join('，')}"
-    end
-    redirect_to user_root_path
-  end
-
-  def update_call_log
-    @call_log = CallLog.find(params[:id])
-    if @call_log.update(params_call_log)
-      flash[:notice] = t('.notice')
-    else
-      flash[:alert] = "#{t('.alert')}：#{@call_log.errors.full_messages.join('，')}"
-    end
-    redirect_to user_root_path
-  end
-
   private
 
   def add_batch_applicant
@@ -68,10 +48,6 @@ class HomeController < ApplicationController
 
   def params_applicant
     params.require(:applicant).permit(:name, :phone, :email)
-  end
-
-  def params_call_log
-    params.require(:call_log).permit(:batch_applicant_id, :interview_date, :remarks)
   end
 
   def params_batch_applicant

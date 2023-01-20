@@ -1,6 +1,6 @@
 <div class="flex-title" data-controller="tooltip">
   <h3>Applicant Details</h3>
-  <%= link_to t('view.common.new'), new_home_path, class: 'btn-sm btn btn-primary' %>
+  <%= link_to t('view.common.new'), new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -48,7 +48,7 @@
           <% end %>
         </td>
         <td>
-          <%= form_with model: batch_applicant, url: home_path(batch_applicant), method: :patch do |f| %>
+          <%= form_with model: batch_applicant, url: batch_applicant_path(batch_applicant), method: :patch do |f| %>
             <div class="d-flex">
               <%= f.select :status,
                            options_for_select(BatchApplicant.aasm.states_for_select, batch_applicant.status),
@@ -60,7 +60,7 @@
         <td>
           <% if batch_applicant.remarks.present? %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
-              <%= link_to edit_home_path(batch_applicant) do %>
+              <%= link_to edit_batch_applicant_path(batch_applicant) do %>
                 <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= batch_applicant.remarks %>">
                   <%= batch_applicant.remarks[0, 10] %>...
                 </span>
@@ -68,15 +68,15 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
-              <%= link_to 'Add Remarks', edit_home_path(batch_applicant), class: 'btn-sm btn btn-success' %>
+              <%= link_to 'Add Remarks', edit_batch_applicant_path(batch_applicant), class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
       </tr>
 
-      <%= render 'home/add_call_logs', call_log: @call_log, batch_applicant: batch_applicant %>
+      <%= render 'batch_applicants/add_call_logs', call_log: @call_log, batch_applicant: batch_applicant %>
       <% if call_logs.present? %>
-        <%= render 'home/update_call_logs', call_logs: call_logs, call_log: call_logs.last %>
+        <%= render 'batch_applicants/update_call_logs', batch_applicant: batch_applicant, call_logs: call_logs, call_log: call_logs.last %>
       <% end %>
     <% end %>
     </tbody>

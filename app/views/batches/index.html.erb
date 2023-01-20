@@ -17,7 +17,7 @@
       <tr>
         <td><%= batch.batch %></td>
         <td>
-          <% colors = batch.status == 'open' ? 'success' : 'danger' %>
+          <% colors = batch.open? ? 'success' : 'danger' %>
           <span class="badge bg-<%= colors %>">
             <%= Batch.human_attribute_name("status.#{batch.status}") %>
           </span>

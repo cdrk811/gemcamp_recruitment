@@ -1,10 +1,9 @@
 <div class="modal fade" id="updateDate_<%= call_logs&.last&.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <%= form_for call_log, url: update_call_log_home_path(call_log), method: :put, data: { turbo: false }, html: { class: 'form' } do |f| %>
+      <%= form_for call_log, url: batch_applicant_call_log_path(batch_applicant, call_log), method: :put, data: { turbo: false }, html: { class: 'form' } do |f| %>
         <div class="modal-body">
           <div class="form-group">
-            <%= hidden_field_tag :batch_applicant_id, call_logs&.last&.batch_applicant_id %>
             <%= f.label :interview_date, BatchApplicant.human_attribute_name(:interview_date), class: 'form-label text-bold' %>:
             <%= f.datetime_field :interview_date, class: 'form-control' %>
           </div>
