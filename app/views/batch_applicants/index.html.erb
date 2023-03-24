@@ -19,7 +19,13 @@
     <tbody>
     <% @batch_applicants.each do |batch_applicant| %>
       <tr>
-        <td><%= batch_applicant.applicant.name %></td>
+        <td>
+          <% if batch_applicant.applicant.batch.size > 1 %>
+           <%= link_to batch_applicant.applicant.name, applicant_batches_path(batch_applicant.applicant) %>
+          <% else %>
+            <%= batch_applicant.applicant.name %>
+          <% end %>
+        </td>
         <td><%= batch_applicant.applicant.phone %></td>
         <td><%= batch_applicant.applicant.email %></td>
         <td>
