@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :batch_applicants, only: %i[new create edit update] do
     resources :call_logs, only: %i[create update]
   end
-  resources :applicants, except: :show
+  resources :applicants, except: :show do
+    resources :batches, only: :index, controller: 'applicants/batches'
+  end
   resources :batches, except: :show
 end

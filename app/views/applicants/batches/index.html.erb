@@ -1,0 +1,43 @@
+<div class="flex-title" data-controller="tooltip">
+  <h3>Applicant Details</h3>
+  <%= link_to t('view.common.new'), new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
+</div>
+<br>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="table table-bordered table-striped table-hover text-center">
+    <thead>
+    <tr>
+      <th>Batch No.</th>
+      <th>Name</th>
+      <th>Contact No.</th>
+      <th>Email</th>
+      <th>Application Date</th>
+      <th>Interview/Text Date</th>
+      <th>Status</th>
+      <th>Remarks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @applicant_batches.each do |applicant_batch| %>
+      <tr>
+        <td><%= applicant_batch.applicant.name %></td>
+        <td><%= applicant_batch.applicant.name %></td>
+        <td><%= applicant_batch.applicant.phone %></td>
+        <td><%= applicant_batch.applicant.email %></td>
+        <td><%= applicant_batch.created_at.strftime('%B %d, %Y') %></td>
+        <td>
+          <% applicant_batch.call_logs.each do |call_log| %>
+            <span>
+              <%= "#{call_log.interview_date.strftime('%B %d, %Y')} - #{call_log.remarks}" %>
+            </span>
+          <% end.empty? and begin %>
+            No Data
+          <% end %>
+        </td>
+        <td><%= applicant_batch.status %></td>
+        <td><%= applicant_batch.remarks %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
