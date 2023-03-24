@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class BatchApplicantsController < ApplicationController
-  before_action :set_batch_applicant, only: %i[edit update]
+  before_action :set_batch_applicant, except: %i[index new create]
 
   def index
-    @batch_applicants = BatchApplicant.includes(:call_logs, applicant: :batch)
+    @batch_applicants = BatchApplicant.includes(:call_logs, applicant: :batch).show_to_home
     @call_log = CallLog.new
   end
 
@@ -32,6 +32,36 @@ class BatchApplicantsController < ApplicationController
     else
       flash[:alert] = "#{t('.alert')}：#{@batch_applicant.errors.full_messages.join('，')}"
     end
+    redirect_to user_root_path
+  end
+
+  def pass
+    if @batch_applicant.may_pass? && @batch_applicant.pass!
+      flash[:notice] = t('.notice')
+    else
+      flash[:error] = t('.error')
+    end
+
+    redirect_to user_root_path
+  end
+
+  def decline
+    if @batch_applicant.may_decline? && @batch_applicant.decline!
+      flash[:notice] = t('.notice')
+    else
+      flash[:error] = t('.error')
+    end
+
+    redirect_to user_root_path
+  end
+
+  def fail
+    if @batch_applicant.may_fail? && @batch_applicant.fail!
+      flash[:notice] = t('.notice')
+    else
+      flash[:error] = t('.error')
+    end
+
     redirect_to user_root_path
   end
 

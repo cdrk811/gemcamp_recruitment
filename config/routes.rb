@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   devise_for :users, path: :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   resources :batch_applicants, only: %i[new create edit update] do
     resources :call_logs, only: %i[create update]
+    member do
+      put :pass
+      put :decline
+      put :fail
+    end
   end
   resources :applicants, except: :show do
     resources :batches, only: :index, controller: 'applicants/batches'
