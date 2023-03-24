@@ -4,7 +4,7 @@ class BatchApplicantsController < ApplicationController
   before_action :set_batch_applicant, only: %i[edit update]
 
   def index
-    @batch_applicants = BatchApplicant.includes(:applicant, :call_logs, :batch)
+    @batch_applicants = BatchApplicant.includes(:call_logs, applicant: :batch)
     @call_log = CallLog.new
   end
 

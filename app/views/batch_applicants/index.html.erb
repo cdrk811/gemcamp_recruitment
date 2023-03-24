@@ -33,14 +33,12 @@
         </td>
         <td>
           <% call_logs = batch_applicant.call_logs %>
-
           <% if call_logs.present? %>
             <span class="badge bg-<%= change_color(call_logs) %>">
-              <%= call_logs.count %>
+              <%= call_logs.size %>
             </span>
-            <% last_three_call_logs = call_logs.last(3).map { |date| date.interview_date.strftime('%B %d, %Y') }.join("\n") %>
-            <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= last_three_call_logs %>">
-              <%= call_logs.last.interview_date.strftime('%B %d, %Y') %>
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= call_logs.recent_logs.join("\n") %>">
+              <%= "#{call_logs.last.interview_date.strftime('%B %d, %Y')} : #{call_logs.last.remarks}" %>
             </span>
           <% end %>
 
