@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_11_083623) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_24_055519) do
   create_table "applicants", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "phone"
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_083623) do
     t.string "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "interview_date"
     t.index ["applicant_id"], name: "fk_rails_12d30174f3"
     t.index ["batch_id", "applicant_id"], name: "index_batch_applicants_on_batch_id_and_applicant_id", unique: true
   end

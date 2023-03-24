@@ -13,6 +13,7 @@
       <th>Application Date</th>
       <th>Interview/Text Date</th>
       <th>Status</th>
+      <th>Call Logs</th>
       <th>Remarks</th>
     </tr>
     </thead>
@@ -32,13 +33,26 @@
           <%= batch_applicant.created_at.strftime('%B %d, %Y') %>
         </td>
         <td>
+          <%= batch_applicant.interview_date&.strftime('%B %d, %Y') %>
+        </td>
+        <td>
+          <%= form_with model: batch_applicant, url: batch_applicant_path(batch_applicant), method: :patch do |f| %>
+            <div class="d-flex">
+              <%= f.select :status,
+                           options_for_select(BatchApplicant.aasm.states_for_select, batch_applicant.status),
+                           { prompt: t('view.common.all') },
+                           { class: 'form-control text-center', onchange: 'this.form.submit()' } %>
+            </div>
+          <% end %>
+        </td>
+        <td>
           <% call_logs = batch_applicant.call_logs %>
           <% if call_logs.present? %>
             <span class="badge bg-<%= change_color(call_logs) %>">
               <%= call_logs.size %>
             </span>
             <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= call_logs.recent_logs.join("\n") %>">
-              <%= "#{call_logs.last.interview_date.strftime('%B %d, %Y')} : #{call_logs.last.remarks}" %>
+              <%= "#{call_logs.last.interview_date&.strftime('%B %d, %Y')} : #{call_logs.last.remarks}" %>
             </span>
           <% end %>
 
@@ -49,16 +63,6 @@
             <%= link_to 'javascript:void(0)', class: 'btn-sm btn-sm btn btn-warning', data: { bs_toggle: :modal, bs_target: "#updateDate_#{call_logs.last.id}" } do %>
               <i class="bi bi-pencil"></i>
             <% end %>
-          <% end %>
-        </td>
-        <td>
-          <%= form_with model: batch_applicant, url: batch_applicant_path(batch_applicant), method: :patch do |f| %>
-            <div class="d-flex">
-              <%= f.select :status,
-                           options_for_select(BatchApplicant.aasm.states_for_select, batch_applicant.status),
-                           { prompt: t('view.common.all') },
-                           { class: 'form-control text-center', onchange: 'this.form.submit()' } %>
-            </div>
           <% end %>
         </td>
         <td>
