@@ -1,5 +1,5 @@
 class CallLog < ApplicationRecord
-  belongs_to :batch_applicant, optional: true
+  belongs_to :interview, optional: true
 
   default_scope { order(:interview_date) }
 

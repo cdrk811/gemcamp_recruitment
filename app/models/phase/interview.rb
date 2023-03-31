@@ -1,11 +1,9 @@
-class BatchApplicant < ApplicationRecord
+class Phase::Interview < ApplicationRecord
+  self.table_name = 'interviews'
   include AASM
 
-  belongs_to :applicant
-  belongs_to :batch
   has_many :call_logs
-
-  scope :show_to_home, -> { pending.joins(:batch).where("batches.status = ?", :open) }
+  belongs_to :applicant_batch_ship
 
   aasm column: :status do
     state :pending, initial: true

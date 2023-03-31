@@ -1,7 +1,7 @@
 class Applicant < ApplicationRecord
-
-  has_many :batch_applicant
-  has_many :batch, through: :batch_applicant
+  has_many :applicant_batch_ships
+  has_many :batches, through: :applicant_batch_ships
+  has_many :interviews, through: :applicant_batch_ships
 
   validates :name, presence: true
   validates :phone, presence: true

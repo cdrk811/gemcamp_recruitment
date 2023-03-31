@@ -1,7 +1,6 @@
 class Batch < ApplicationRecord
-
-  has_many :batch_applicant
-  has_many :applicant, through: :batch_applicant
+  has_many :applicant_batch_ships
+  has_many :batches, through: :applicant_batch_ships
 
   enum status: { open: 0, close: 1 }
 
