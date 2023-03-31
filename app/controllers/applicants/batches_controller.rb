@@ -2,7 +2,7 @@ class Applicants::BatchesController < ApplicationController
   before_action :set_applicant, only: :index
 
   def index
-    @applicant_batches = BatchApplicant.where(applicant: @applicant)
+    @applicant_batches = ApplicantBatchShip.where(applicant: @applicant)
   end
 
   private

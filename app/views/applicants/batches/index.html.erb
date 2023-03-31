@@ -1,6 +1,5 @@
 <div class="flex-title" data-controller="tooltip">
-  <h3>Applicant Details</h3>
-  <%= link_to t('view.common.new'), new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
+  <h3>Applicant Batch Details</h3>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -14,28 +13,30 @@
       <th>Application Date</th>
       <th>Interview/Text Date</th>
       <th>Status</th>
+      <th>Call Logs</th>
       <th>Remarks</th>
+      <th>Sourcing Chanel</th>
     </tr>
     </thead>
     <tbody>
     <% @applicant_batches.each do |applicant_batch| %>
       <tr>
-        <td><%= applicant_batch.applicant.name %></td>
+        <td><%= applicant_batch.batch.number %></td>
         <td><%= applicant_batch.applicant.name %></td>
         <td><%= applicant_batch.applicant.phone %></td>
         <td><%= applicant_batch.applicant.email %></td>
-        <td><%= applicant_batch.created_at.strftime('%B %d, %Y') %></td>
+        <td><%= applicant_batch.application_date.strftime('%B %d, %Y') %></td>
+        <td><%= applicant_batch.interview.interview_date&.strftime('%B %d, %Y') %></td>
+        <td><%= applicant_batch.interview.status %></td>
         <td>
-          <% applicant_batch.call_logs.each do |call_log| %>
-            <span>
-              <%= "#{call_log.interview_date.strftime('%B %d, %Y')} - #{call_log.remarks}" %>
-            </span>
+          <% applicant_batch.interview.call_logs.each do |call_log| %>
+            <span><%= call_log.date_and_remarks %></span>
           <% end.empty? and begin %>
             No Data
           <% end %>
         </td>
-        <td><%= applicant_batch.status %></td>
-        <td><%= applicant_batch.remarks %></td>
+        <td><%= applicant_batch.interview.remarks %></td>
+        <td><%= applicant_batch.sourcing_channel %></td>
       </tr>
     <% end %>
     </tbody>

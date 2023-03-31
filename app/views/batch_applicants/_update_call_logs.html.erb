@@ -4,12 +4,12 @@
       <%= form_for call_log, url: batch_applicant_call_log_path(batch_applicant, call_log), method: :put, data: { turbo: false }, html: { class: 'form' } do |f| %>
         <div class="modal-body">
           <div class="form-group">
-            <%= f.label :interview_date, BatchApplicant.human_attribute_name(:interview_date), class: 'form-label text-bold' %>:
+            <%= f.label :interview_date, CallLog.human_attribute_name(:interview_date), class: 'form-label text-bold' %>:
             <%= f.datetime_field :interview_date, class: 'form-control' %>
           </div>
           <div class="form-group">
-            <%= f.label :remarks, BatchApplicant.human_attribute_name(:remarks), class: 'form-label text-bold' %>:
-            <%= f.text_area :remarks, rows: '5', class: 'form-control', placeholder: BatchApplicant.human_attribute_name(:remarks) %>
+            <%= f.label :remarks, CallLog.human_attribute_name(:remarks), class: 'form-label text-bold' %>:
+            <%= f.text_area :remarks, rows: '5', class: 'form-control', placeholder: CallLog.human_attribute_name(:remarks) %>
           </div>
         </div>
         <div class="modal-footer">

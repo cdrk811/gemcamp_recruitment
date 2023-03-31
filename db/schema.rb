@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_050812) do
   end
 
   create_table "interviews", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "status", default: 0
+    t.string "status"
     t.string "remarks"
     t.datetime "interview_date"
     t.bigint "applicant_batch_ship_id"
