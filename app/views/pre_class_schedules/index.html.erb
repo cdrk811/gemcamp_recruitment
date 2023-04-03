@@ -1,0 +1,93 @@
+<div class="flex-title">
+  <h3>Pre Class Schedules</h3>
+</div>
+<br>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="table table-bordered table-striped table-hover text-center">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Contact No.</th>
+      <th>Email</th>
+      <th>Sent At</th>
+      <th>Reply At</th>
+      <th>Status</th>
+      <th>Pre Class Date</th>
+      <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @pre_class_schedules.each do |pre_class_schedule| %>
+      <% applicant_batch = pre_class_schedule.applicant_batch_ship %>
+      <tr>
+        <td>
+          <%= link_to applicant_batch.applicant.name, applicant_batch.resume_link, target: '_blank' %>
+        </td>
+        <td><%= applicant_batch.applicant.phone %></td>
+        <td><%= applicant_batch.applicant.email %></td>
+        <td>
+          <% if pre_class_schedule.sent_at&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :sent_at) do %>
+              <%= link_to edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :sent_at) do %>
+                <%= pre_class_schedule.sent_at&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :sent_at) do %>
+              <%= link_to 'Select Sent At', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :sent_at), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if pre_class_schedule.reply_at&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :reply_at) do %>
+              <%= link_to edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :reply_at) do %>
+                <%= pre_class_schedule.reply_at&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :reply_at) do %>
+              <%= link_to 'Select Reply At', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :reply_at), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= pre_class_schedule.status %>
+          <div class="btn-group">
+            <%= button_to 'Confirm', confirm_pre_class_schedule_path(pre_class_schedule), method: :put,
+                          class: 'btn-sm btn btn-success rounded-pill me-2' if pre_class_schedule.may_confirm? %>
+            <%= button_to 'Decline', decline_pre_class_schedule_path(pre_class_schedule), method: :put,
+                          class: 'btn-sm btn btn-warning rounded-pill me-2' if pre_class_schedule.may_decline? %>
+          </div>
+        </td>
+        <td>
+          <% if pre_class_schedule.date&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :date) do %>
+              <%= link_to edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :date) do %>
+                <%= pre_class_schedule.date&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :date) do %>
+              <%= link_to 'Select Date', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :date), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if pre_class_schedule.notes&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :notes) do %>
+              <%= link_to edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :notes) do %>
+                  <%= pre_class_schedule.notes %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_schedule, :notes) do %>
+              <%= link_to 'Add Note', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :notes), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,17 +1,14 @@
 <div class="admin-sidebar-menu overflow-auto bg-dark d-flex flex-column px-8 w-200" data-controller="admin--sidebar" data-admin--sidebar-target="sidebarList">
   <ul id="sidebar-list" class="" data-action="click->admin--sidebar#toggle">
-    <% # 首页 %>
     <li class="home">
       <%= link_to user_root_path, class: 'block' do %>
         <span class="btn btn-dark fs-8 text-white-100 w-100 text-start"><%= t('view.common.home_page') %></span>
       <% end %>
     </li>
-    <% # 会员管理 %>
     <li class="menu my-2">
       <button class="sidebar-toggle btn btn-dark fs-8 text-white-100 w-100 text-start">
         <span><%= t('view.backstage.member_management') %></span>
       </button>
-      <% # 会员管理 - 子项目 %>
       <ul class="member_management">
         <li>
           <%= link_to applicants_path, class: 'btn btn-dark w-100 text-start' do %>
@@ -24,8 +21,8 @@
           <% end %>
         </li>
         <li>
-          <%= link_to '#', class: 'btn btn-dark w-100 text-start' do %>
-            <span>Example 3</span>
+          <%= link_to pre_class_schedules_path, class: 'btn btn-dark w-100 text-start' do %>
+            <span>Pre Class Schedules Management</span>
           <% end %>
         </li>
         <li>
