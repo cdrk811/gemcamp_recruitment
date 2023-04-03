@@ -7,7 +7,7 @@
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
     <tr>
-      <th>Batch</th>
+      <th>Batch Number</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
@@ -15,7 +15,7 @@
     <tbody>
     <% @batches.each do |batch| %>
       <tr>
-        <td><%= batch.batch %></td>
+        <td><%= batch.number %></td>
         <td>
           <% colors = batch.open? ? 'success' : 'danger' %>
           <span class="badge bg-<%= colors %>">

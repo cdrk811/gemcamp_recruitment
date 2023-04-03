@@ -13,57 +13,76 @@
       <th>Application Date</th>
       <th>Interview/Text Date</th>
       <th>Status</th>
+      <th>Call Logs</th>
       <th>Remarks</th>
+      <th>Sourcing Channel</th>
     </tr>
     </thead>
     <tbody>
     <% @batch_applicants.each do |batch_applicant| %>
+      <% interview = batch_applicant.interview %>
       <tr>
-        <td><%= batch_applicant.applicant.name %></td>
+        <td>
+          <%= link_to batch_applicant.applicant.name, batch_applicant.resume_link, target: '_blank' %>
+          <%= link_to 'Application Record', applicant_batches_path(batch_applicant.applicant),
+                      class: 'badge bg-primary' if batch_applicant.applicant.batches.size > 1 %>
+        </td>
         <td><%= batch_applicant.applicant.phone %></td>
         <td><%= batch_applicant.applicant.email %></td>
         <td>
-          <%= batch_applicant.created_at.strftime('%B %d, %Y') %>
+          <%= batch_applicant.application_date&.strftime('%B %d, %Y') %>
         </td>
         <td>
-          <% call_logs = batch_applicant.call_logs %>
-
+          <%= interview.interview_date&.strftime('%B %d, %Y') %>
+        </td>
+        <td>
+          <%= interview.status %>
+          <div class="btn-group">
+            <%= button_to "Pass", pass_batch_applicant_path(batch_applicant), method: :put,
+                          class: 'btn-sm btn btn-success rounded-pill me-2' if interview.may_pass? %>
+            <%= button_to "Decline", decline_batch_applicant_path(batch_applicant), method: :put,
+                          class: 'btn-sm btn btn-warning rounded-pill me-2' if interview.may_decline? %>
+            <%= button_to "Fail", fail_batch_applicant_path(batch_applicant), method: :put,
+                          class: 'btn-sm btn btn-danger rounded-pill' if interview.may_fail? %>
+          </div>
+        </td>
+        <td>
+          <% call_logs = interview.call_logs %>
           <% if call_logs.present? %>
-            <span class="badge bg-<%= change_color(call_logs) %>">
-              <%= call_logs.count %>
-            </span>
-            <% last_three_call_logs = call_logs.last(3).map { |date| date.interview_date.strftime('%B %d, %Y') }.join("\n") %>
-            <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= last_three_call_logs %>">
-              <%= call_logs.last.interview_date.strftime('%B %d, %Y') %>
-            </span>
+            <% if call_logs.size > 1 %>
+              <span class="badge bg-<%= change_color(call_logs) %>">
+                <%= call_logs.size %>
+              </span>
+              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= call_logs.recent_logs.join("\n") %>">
+                <%= call_logs.last.date_and_remarks %>
+              </span>
+            <% else %>
+              <%= call_logs.last.date_and_remarks %>
+            <% end %>
           <% end %>
 
-          <%= link_to 'javascript:void(0)', class: 'btn-sm btn-sm btn btn-success', data: { bs_toggle: :modal, bs_target: "#addDate_#{batch_applicant.id}" } do %>
+          <%= link_to 'javascript:void(0)', class: 'btn-sm btn-sm btn btn-success',
+                      data: { bs_toggle: :modal, bs_target: "#addDate_#{batch_applicant.id}" } do %>
             <i class="bi bi-plus-lg"></i>
           <% end %>
           <% if call_logs.present? %>
-            <%= link_to 'javascript:void(0)', class: 'btn-sm btn-sm btn btn-warning', data: { bs_toggle: :modal, bs_target: "#updateDate_#{call_logs.last.id}" } do %>
+            <%= link_to 'javascript:void(0)', class: 'btn-sm btn-sm btn btn-warning',
+                        data: { bs_toggle: :modal, bs_target: "#updateDate_#{call_logs.last.id}" } do %>
               <i class="bi bi-pencil"></i>
             <% end %>
           <% end %>
         </td>
         <td>
-          <%= form_with model: batch_applicant, url: batch_applicant_path(batch_applicant), method: :patch do |f| %>
-            <div class="d-flex">
-              <%= f.select :status,
-                           options_for_select(BatchApplicant.aasm.states_for_select, batch_applicant.status),
-                           { prompt: t('view.common.all') },
-                           { class: 'form-control text-center', onchange: 'this.form.submit()' } %>
-            </div>
-          <% end %>
-        </td>
-        <td>
-          <% if batch_applicant.remarks.present? %>
+          <% if interview.remarks.present? %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
               <%= link_to edit_batch_applicant_path(batch_applicant) do %>
-                <span class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= batch_applicant.remarks %>">
-                  <%= batch_applicant.remarks[0, 10] %>...
-                </span>
+                <% if interview.remarks.length > 16 %>
+                  <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= interview.remarks %>">
+                    <%= interview.remarks[0, 14] %>...
+                  </span>
+                <% else %>
+                  <%= interview.remarks %>
+                <% end %>
               <% end %>
             <% end %>
           <% else %>
@@ -72,6 +91,7 @@
             <% end %>
           <% end %>
         </td>
+        <td><%= batch_applicant.sourcing_channel %></td>
       </tr>
 
       <%= render 'batch_applicants/add_call_logs', call_log: @call_log, batch_applicant: batch_applicant %>

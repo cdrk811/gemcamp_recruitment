@@ -10,9 +10,15 @@ en:
       batch:
         one: Batch
         other: Batches
-      batch_applicant:
-        one: Batch Applicant
-        other: Batch Applicants
+      applicant_batch_ship:
+        one: Applicant Batch
+        other: Applicant Batches
+      interview:
+        one: Interview
+        other: Interview
+      call_log:
+        one: Call Log
+        other: Call Logs
     attributes:
       applicant:
         name: Name
@@ -21,15 +27,23 @@ en:
         interview_date: Interview Date
         email: Email
       batch:
-        batch: Batch No.
+        number: Batch No.
         status: Status
       batch/status:
         open: Open
         close: Close
-      batch_applicant:
+      applicant_batch_ship:
+        application_date: Application Date
+        sourcing_channel: Sourcing Channel
+        resume_link: Resume Link
+      call_log:
+        remarks: Remarks
+        interview_date: Interview Date
+      interview:
         status: Status
         remarks: Remarks
-      batch_applicant/status:
+        interview_date: Interview Date
+      interview/status:
         pending: Pending
         passed: Passed
         declined: Declined

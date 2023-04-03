@@ -3,7 +3,8 @@ class CallLogsController < ApplicationController
 
   def create
     @call_log = CallLog.new(params_call_log)
-    @call_log.batch_applicant_id = params[:batch_applicant_id]
+    applicant_batch = ApplicantBatchShip.find(params[:batch_applicant_id])
+    @call_log.interview_id = applicant_batch.interview.id
     if @call_log.save
       flash[:notice] = t('.notice')
     else
@@ -28,6 +29,6 @@ class CallLogsController < ApplicationController
   end
 
   def params_call_log
-    params.require(:call_log).permit(:batch_applicant_id, :interview_date, :remarks)
+    params.require(:call_log).permit(:interview_id, :interview_date, :remarks)
   end
 end

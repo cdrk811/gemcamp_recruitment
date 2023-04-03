@@ -48,6 +48,6 @@ class BatchesController < ApplicationController
   end
 
   def params_batch
-    params.require(:batch).permit(:batch, :status)
+    params.require(:batch).permit(:number, :status)
   end
 end
