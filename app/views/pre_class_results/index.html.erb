@@ -1,0 +1,111 @@
+<div class="flex-title">
+  <h3>Pre Class Results</h3>
+</div>
+<br>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="table table-bordered table-striped table-hover text-center">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Contact No.</th>
+      <th>Email</th>
+      <th>Date Attended</th>
+      <th>Repository</th>
+      <th>Result</th>
+      <th>Remarks</th>
+      <th>Proctor Notes</th>
+      <th>Commute Duration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @pre_class_results.each do |pre_class_result| %>
+      <% applicant_batch = pre_class_result.applicant_batch_ship %>
+      <tr>
+        <td>
+          <%= link_to applicant_batch.applicant.name, applicant_batch.resume_link, target: '_blank' %>
+        </td>
+        <td><%= applicant_batch.applicant.phone %></td>
+        <td><%= applicant_batch.applicant.email %></td>
+        <td>
+          <% if pre_class_result.date_attended&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :date_attended) do %>
+              <%= link_to edit_pre_class_result_path(id: pre_class_result.id, column: :date_attended) do %>
+                <%= pre_class_result.date_attended&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :date_attended) do %>
+              <%= link_to 'Select Date Attended', edit_pre_class_result_path(id: pre_class_result.id, column: :date_attended), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if pre_class_result.repository&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :repository) do %>
+              <%= link_to edit_pre_class_result_path(id: pre_class_result.id, column: :repository) do %>
+                <%= pre_class_result.repository&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :repository) do %>
+              <%= link_to 'Add Repository', edit_pre_class_result_path(id: pre_class_result.id, column: :repository), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= pre_class_result.result %>
+          <div class="btn-group">
+            <%= button_to 'Pass', pass_pre_class_result_path(pre_class_result), method: :put,
+                          class: 'btn-sm btn btn-success rounded-pill me-2' if pre_class_result.may_pass? %>
+            <%= button_to 'Shortlist', shortlist_pre_class_result_path(pre_class_result), method: :put,
+                          class: 'btn-sm btn btn-warning rounded-pill me-2' if pre_class_result.may_shortlist? %>
+            <%= button_to 'Decline', decline_pre_class_result_path(pre_class_result), method: :put,
+                          class: 'btn-sm btn btn-secondary rounded-pill me-2' if pre_class_result.may_decline? %>
+            <%= button_to 'Fail', fail_pre_class_result_path(pre_class_result), method: :put,
+                          class: 'btn-sm btn btn-danger rounded-pill me-2' if pre_class_result.may_fail? %>
+          </div>
+        </td>
+        <td>
+          <% if pre_class_result.remarks&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :remarks) do %>
+              <%= link_to edit_pre_class_result_path(id: pre_class_result.id, column: :remarks) do %>
+                <%= pre_class_result.remarks %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :remarks) do %>
+              <%= link_to 'Add Remarks', edit_pre_class_result_path(id: pre_class_result.id, column: :remarks), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if pre_class_result.proctor_note&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :proctor_note) do %>
+              <%= link_to edit_pre_class_result_path(id: pre_class_result.id, column: :proctor_note) do %>
+                <%= pre_class_result.proctor_note %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :proctor_note) do %>
+              <%= link_to 'Add Proctor Notes', edit_pre_class_result_path(id: pre_class_result.id, column: :proctor_note), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if pre_class_result.commute_duration&.present? %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :commute_duration) do %>
+              <%= link_to edit_pre_class_result_path(id: pre_class_result.id, column: :commute_duration) do %>
+                <%= pre_class_result.commute_duration %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(pre_class_result, :commute_duration) do %>
+              <%= link_to 'Add Commute Duration', edit_pre_class_result_path(id: pre_class_result.id, column: :commute_duration), class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

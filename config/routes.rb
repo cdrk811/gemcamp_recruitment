@@ -19,4 +19,12 @@ Rails.application.routes.draw do
       put :decline
     end
   end
+  resources :pre_class_results, only: %i[index edit update] do
+    member do
+      put :shortlist
+      put :pass
+      put :decline
+      put :fail
+    end
+  end
 end

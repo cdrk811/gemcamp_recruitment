@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_021303) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_093634) do
   create_table "applicant_batch_ships", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "application_date"
     t.string "sourcing_channel"
@@ -55,6 +55,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_021303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["applicant_batch_ship_id"], name: "index_interviews_on_applicant_batch_ship_id"
+  end
+
+  create_table "pre_class_results", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "date_attended"
+    t.string "repository"
+    t.text "remarks"
+    t.string "result"
+    t.text "proctor_note"
+    t.string "commute_duration"
+    t.bigint "applicant_batch_ship_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_batch_ship_id"], name: "index_pre_class_results_on_applicant_batch_ship_id"
   end
 
   create_table "pre_class_schedules", charset: "utf8mb4", force: :cascade do |t|

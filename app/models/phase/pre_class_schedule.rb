@@ -9,7 +9,7 @@ class Phase::PreClassSchedule < ApplicationRecord
     state :confirmed, :declined
 
     event :confirm, before: :fill_reply_at do
-      transitions from: :pending, to: :confirmed, if: :date_exists?
+      transitions from: :pending, to: :confirmed, success: :generate_pre_class_result!, if: :date_exists?
     end
 
     event :decline, before: :fill_reply_at do
@@ -29,5 +29,9 @@ class Phase::PreClassSchedule < ApplicationRecord
 
   def fill_reply_at
     self.reply_at = DateTime.current if reply_at.blank?
+  end
+
+  def generate_pre_class_result!
+    applicant_batch_ship.build_pre_class_result(date_attended: date).save!
   end
 end
