@@ -1,0 +1,23 @@
+<% column = params[:column]&.to_sym %>
+<%= turbo_frame_tag dom_id(@gem_camp, column) do %>
+  <%= form_with model: @gem_camp, url: gem_camp_path(@gem_camp, column: column),
+                method: :put, data: { turbo: false }, html: { class: 'form' } do |f| %>
+    <div class="modal-body">
+      <div class="form-group">
+        <% if column == :notes %>
+          <%= f.text_area :notes, rows: '3', class: 'form-control',
+                          placeholder: Phase::GemCamp.human_attribute_name(:notes) %>
+        <% elsif %i[signed_via letter_type].include?(column) %>
+          <%= f.select column, options_for_select(Phase::GemCamp.send(column.to_s.pluralize),
+                                                  @gem_camp.send(column)), class: 'form-control' %>
+        <% else %>
+          <%= f.datetime_field column, class: 'form-control' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="modal-footer mt-2">
+      <%= link_to 'Cancel', gem_camps_path, class: 'btn-sm btn btn-danger me-2' %>
+      <%= f.submit t('view.common.save'), class: 'btn-sm btn btn-primary' %>
+    </div>
+  <% end %>
+<% end %>

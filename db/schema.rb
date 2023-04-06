@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_093634) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_05_060017) do
   create_table "applicant_batch_ships", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "application_date"
     t.string "sourcing_channel"
@@ -45,6 +45,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_093634) do
     t.datetime "updated_at", null: false
     t.bigint "interview_id"
     t.index ["interview_id"], name: "index_call_logs_on_interview_id"
+  end
+
+  create_table "gem_camps", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "pre_class_date"
+    t.integer "letter_type", default: 0
+    t.integer "signed_via", default: 0
+    t.datetime "sent_at"
+    t.datetime "reply_at"
+    t.string "status"
+    t.text "notes"
+    t.bigint "applicant_batch_ship_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_batch_ship_id"], name: "index_gem_camps_on_applicant_batch_ship_id"
   end
 
   create_table "interviews", charset: "utf8mb4", force: :cascade do |t|

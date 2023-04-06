@@ -27,4 +27,11 @@ Rails.application.routes.draw do
       put :fail
     end
   end
+  resources :gem_camps, only: %i[index edit update] do
+    member do
+      put :confirm
+      put :decline
+      put :deliver
+    end
+  end
 end
