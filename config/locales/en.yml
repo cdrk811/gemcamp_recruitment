@@ -27,3 +27,7 @@ en:
       shortlist: Shortlist
       sign_method: Sign Method
       update: Update
+    sourcing_channel_list:
+      facebook: Facebook
+      rails_website: Admin Rails Website
+      indeed: Indeed

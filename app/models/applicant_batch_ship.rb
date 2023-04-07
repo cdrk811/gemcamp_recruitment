@@ -1,4 +1,10 @@
 class ApplicantBatchShip < ApplicationRecord
+  SOURCING_CHANNEL_LIST = %w[
+    facebook rails_website indeed
+  ].freeze
+
+  serialize :sourcing_channel, Array
+
   belongs_to :applicant
   belongs_to :batch
   has_one :interview, class_name: 'Phase::Interview'
@@ -8,7 +14,7 @@ class ApplicantBatchShip < ApplicationRecord
 
   accepts_nested_attributes_for :interview
 
-  scope :show_to_home, -> { joins(:batch).where('batches.id = ?', Batch.open_status.id)
+  scope :show_to_home, -> { joins(:batch).where('batches.id = ?', Batch.open_status&.id)
                                          .joins(:interview).where('interviews.status = ?', :pending) }
 
   before_create :set_application_date, if: Proc.new { application_date.blank? }

@@ -3,6 +3,7 @@
 class BatchApplicantsController < ApplicationController
   before_action :set_batch_applicant, except: %i[index new create]
   before_action :set_batch, only: %i[index new create]
+  before_action :clear_sourcing_channel, only: %i[create update]
 
   def index
     @batch_applicants = ApplicantBatchShip.includes(:applicant, :batch, interview: :call_logs).show_to_home
@@ -28,6 +29,7 @@ class BatchApplicantsController < ApplicationController
   def edit; end
 
   def update
+    # render json: [params['applicant_batch_ship']['sourcing_channel'], params[:applicant_batch_ship][:sourcing_channel]]
     if @batch_applicant.update(params_batch_applicant)
       flash[:notice] = t('.notice')
     else
@@ -81,11 +83,16 @@ class BatchApplicantsController < ApplicationController
 
   def params_applicant
     params.require(:applicant).permit(:name, :phone, :email,
-                                      applicant_batch_ships_attributes: [:id, :application_date, :sourcing_channel,
-                                                              :resume_link, :batch_id])
+                                      applicant_batch_ships_attributes: [:id, :application_date, :resume_link,
+                                                                         :batch_id, sourcing_channel: []])
   end
 
   def params_batch_applicant
-    params.require(:applicant_batch_ship).permit(interview_attributes: [:id, :remarks])
+    params.require(:applicant_batch_ship).permit(:application_date, sourcing_channel: [],
+                                                 interview_attributes: [:id, :remarks, :interview_date])
+  end
+
+  def clear_sourcing_channel
+    params[:applicant_batch_ship][:sourcing_channel].reject!(&:empty?)
   end
 end

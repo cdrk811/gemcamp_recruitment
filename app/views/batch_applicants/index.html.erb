@@ -32,10 +32,34 @@
         <td><%= batch_applicant.applicant.phone %></td>
         <td><%= batch_applicant.applicant.email %></td>
         <td>
-          <%= batch_applicant.application_date&.strftime('%B %d, %Y') %>
+          <% if batch_applicant.application_date&.present? %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :application_date) do %>
+              <%= link_to edit_batch_applicant_path(id: batch_applicant.id, column: :application_date) do %>
+                <%= batch_applicant.application_date&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :application_date) do %>
+              <%= link_to "#{t('view.common.select')} #{ApplicantBatchShip.human_attribute_name(:application_date)}",
+                          edit_batch_applicant_path(id: batch_applicant.id, column: :application_date),
+                          class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
         </td>
         <td>
-          <%= interview.interview_date&.strftime('%B %d, %Y') %>
+          <% if interview.interview_date&.present? %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :interview_date) do %>
+              <%= link_to edit_batch_applicant_path(id: batch_applicant.id, column: :interview_date) do %>
+                <%= interview.interview_date&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :interview_date) do %>
+              <%= link_to "#{t('view.common.select')} #{ApplicantBatchShip.human_attribute_name(:interview_date)}",
+                          edit_batch_applicant_path(id: batch_applicant.id, column: :interview_date),
+                          class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
         </td>
         <td>
           <%= Phase::Interview.human_attribute_name("status.#{interview.status}") %>
@@ -83,7 +107,7 @@
         <td>
           <% if interview.remarks.present? %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
-              <%= link_to edit_batch_applicant_path(batch_applicant) do %>
+              <%= link_to edit_batch_applicant_path(batch_applicant, column: :remarks) do %>
                 <% if interview.remarks.length > 16 %>
                   <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= interview.remarks %>">
                     <%= interview.remarks[0, 14] %>...
@@ -96,12 +120,26 @@
           <% else %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
               <%= link_to "#{t('view.common.add')} #{Phase::Interview.human_attribute_name(:remarks) }",
-                          edit_batch_applicant_path(batch_applicant),
+                          edit_batch_applicant_path(batch_applicant, column: :remarks),
                           class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
-        <td><%= batch_applicant.sourcing_channel %></td>
+        <td>
+          <% if batch_applicant.sourcing_channel.present? %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :sourcing_channel) do %>
+              <%= link_to edit_batch_applicant_path(batch_applicant, column: :sourcing_channel) do %>
+                <%= batch_applicant.sourcing_channel.join(',') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :sourcing_channel) do %>
+              <%= link_to "#{t('view.common.add')} #{ApplicantBatchShip.human_attribute_name(:sourcing_channel)}",
+                          edit_batch_applicant_path(batch_applicant, column: :sourcing_channel),
+                          class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
 
       <%= render 'batch_applicants/add_call_logs', call_log: @call_log, batch_applicant: batch_applicant %>

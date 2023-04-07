@@ -45,7 +45,7 @@
           <% if pre_class_result.repository&.present? %>
             <%= turbo_frame_tag dom_id(pre_class_result, :repository) do %>
               <%= link_to edit_pre_class_result_path(id: pre_class_result.id, column: :repository) do %>
-                <%= pre_class_result.repository&.strftime('%B %d, %Y') %>
+                <%= pre_class_result.repository %>
               <% end %>
             <% end %>
           <% else %>
