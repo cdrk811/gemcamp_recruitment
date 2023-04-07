@@ -1,21 +1,21 @@
 <div class="flex-title">
-  <h3>Gem Camp Management</h3>
+  <h3><%= "#{Phase::GemCamp.model_name.human} #{t('view.common.management')}" %></h3>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
     <tr>
-      <th>Name</th>
-      <th>Contact No.</th>
-      <th>Email</th>
-      <th>Pre Class Date</th>
-      <th>Letter Type</th>
-      <th>Signed Via</th>
-      <th>Sent At</th>
-      <th>Reply At</th>
-      <th>Status</th>
-      <th>Notes</th>
+      <th><%= Applicant.human_attribute_name(:name) %></th>
+      <th><%= Applicant.human_attribute_name(:contact_no) %></th>
+      <th><%= Applicant.human_attribute_name(:email) %></th>
+      <th><%= Phase::GemCamp.human_attribute_name(:pre_class_date) %></th>
+      <th><%= Phase::GemCamp.human_attribute_name(:letter_type) %></th>
+      <th><%= Phase::GemCamp.human_attribute_name(:signed_via) %></th>
+      <th><%= Phase::GemCamp.human_attribute_name(:sent_at) %></th>
+      <th><%= Phase::GemCamp.human_attribute_name(:reply_at) %></th>
+      <th><%= Phase::GemCamp.human_attribute_name(:status) %></th>
+      <th><%= Phase::GemCamp.human_attribute_name(:notes) %></th>
     </tr>
     </thead>
     <tbody>
@@ -36,7 +36,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(gem_camp, :pre_class_date) do %>
-              <%= link_to 'Select Pre-class Date', edit_gem_camp_path(id: gem_camp.id, column: :pre_class_date), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{Phase::GemCamp.human_attribute_name(:pre_class_date)}",
+                          edit_gem_camp_path(id: gem_camp.id, column: :pre_class_date),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
@@ -49,7 +51,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(gem_camp, :letter_type) do %>
-              <%= link_to 'Select Letter Type', edit_gem_camp_path(id: gem_camp.id, column: :letter_type), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{Phase::GemCamp.human_attribute_name(:letter_type)}",
+                          edit_gem_camp_path(id: gem_camp.id, column: :letter_type),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
@@ -62,7 +66,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(gem_camp, :signed_via) do %>
-              <%= link_to 'Select Sign Method', edit_gem_camp_path(id: gem_camp.id, column: :signed_via), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{t('view.common.sign_method')}",
+                          edit_gem_camp_path(id: gem_camp.id, column: :signed_via),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
@@ -75,7 +81,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(gem_camp, :sent_at) do %>
-              <%= link_to 'Select Send Date', edit_gem_camp_path(id: gem_camp.id, column: :sent_at), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{t('view.common.send_date')}",
+                          edit_gem_camp_path(id: gem_camp.id, column: :sent_at),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
@@ -88,18 +96,26 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(gem_camp, :reply_at) do %>
-              <%= link_to 'Select Reply Date', edit_gem_camp_path(id: gem_camp.id, column: :reply_at), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{t('view.common.reply_date')}",
+                          edit_gem_camp_path(id: gem_camp.id, column: :reply_at),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
         <td>
           <%= gem_camp.status %>
           <div class="btn-group">
-            <%= button_to 'Confirm', confirm_gem_camp_path(gem_camp), method: :put,
+            <%= button_to t('view.common.confirm'),
+                          confirm_gem_camp_path(gem_camp),
+                          method: :put,
                           class: 'btn-sm btn btn-success rounded-pill me-2' if gem_camp.may_confirm? %>
-            <%= button_to 'Decline', decline_gem_camp_path(gem_camp), method: :put,
+            <%= button_to t('view.common.decline'),
+                          decline_gem_camp_path(gem_camp),
+                          method: :put,
                           class: 'btn-sm btn btn-secondary rounded-pill me-2' if gem_camp.may_decline? %>
-            <%= button_to 'Deliver', deliver_gem_camp_path(gem_camp), method: :put,
+            <%= button_to t('view.common.deliver'),
+                          deliver_gem_camp_path(gem_camp),
+                          method: :put,
                           class: 'btn-sm btn btn-warning rounded-pill me-2' if gem_camp.may_deliver? %>
           </div>
         </td>
@@ -112,7 +128,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(gem_camp, :notes) do %>
-              <%= link_to 'Add Notes', edit_gem_camp_path(id: gem_camp.id, column: :notes), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.add')} #{Phase::GemCamp.human_attribute_name(:notes)}",
+                          edit_gem_camp_path(id: gem_camp.id, column: :notes),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>

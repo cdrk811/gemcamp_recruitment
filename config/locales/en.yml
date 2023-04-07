@@ -2,8 +2,28 @@ en:
   view:
     common:
       action: Action
-      delete_confirm: Are you sure you want to delete?
+      add: Add
+      application_record: Application Record
+      back: Back
       cancel: Cancel
-      update: Update
-      save: Save
+      confirm: Confirm
+      create: Create
+      date: Date
+      decline: Decline
+      delete: Delete
+      delete_confirm: Are you sure you want to delete?
+      deliver: Deliver
+      details: Details
+      edit: Edit
+      fail: Fail
+      gem_camp_recruitment: GEM Camp Recruitment
+      management: Management
       new: New
+      pass: Pass
+      reply_date: Reply Date
+      save: Save
+      select: Select
+      send_date: Send Date
+      shortlist: Shortlist
+      sign_method: Sign Method
+      update: Update

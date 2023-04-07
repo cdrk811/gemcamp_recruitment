@@ -2,41 +2,41 @@
   <%= render 'shared/error_messages', resource: applicant %>
 
   <div class="mb-3">
-    <%= label_tag :number, 'Number', class: 'form-label' %>
+    <%= label_tag :number, Batch.human_attribute_name(:number), class: 'form-label' %>
     <%= text_field_tag :number, @batch.number, disabled: true, class: 'form-control'  %>
   </div>
 
   <div class="mb-3">
     <%= f.label :name, Applicant.human_attribute_name(:name), class: 'form-label' %>
-    <%= f.text_field :name, { required: true, class: 'form-control', placeholder: 'Name' } %>
+    <%= f.text_field :name, { required: true, class: 'form-control', placeholder: "#{Applicant.human_attribute_name(:name)}" } %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :phone, Applicant.human_attribute_name(:phone), class: 'form-label' %>
-    <%= f.text_field :phone, { required: true, class: 'form-control', placeholder: 'Phone Number' } %>
+    <%= f.label :phone, Applicant.human_attribute_name(:contact_no), class: 'form-label' %>
+    <%= f.text_field :phone, { required: true, class: 'form-control', placeholder: "#{Applicant.human_attribute_name(:contact_no)}" } %>
   </div>
 
   <div class="mb-3">
     <%= f.label Applicant.human_attribute_name(:email) %>
-    <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+    <%= f.email_field :email, class: 'form-control', placeholder: "#{Applicant.human_attribute_name(:email)}" %>
   </div>
 
   <%= f.fields_for :applicant_batch_ships do |a| %>
     <%= a.hidden_field :batch_id, value: @batch.id %>
 
     <div class="mb-3">
-      <%= a.label 'Sourcing Channel' %>
-      <%= a.text_field :sourcing_channel, class: 'form-control', placeholder: 'Sourcing Channel' %>
+      <%= a.label ApplicantBatchShip.human_attribute_name(:sourcing_channel) %>
+      <%= a.text_field :sourcing_channel, class: 'form-control', placeholder: "#{ApplicantBatchShip.human_attribute_name(:sourcing_channel)}" %>
     </div>
 
     <div class="mb-3">
-      <%= a.label 'Resume Link' %>
-      <%= a.text_field :resume_link, class: 'form-control', placeholder: 'Resume Link', required: true %>
+      <%= a.label ApplicantBatchShip.human_attribute_name(:resume_link) %>
+      <%= a.text_field :resume_link, class: 'form-control', placeholder: "#{ApplicantBatchShip.human_attribute_name(:resume_link)}", required: true %>
     </div>
 
     <div class="mb-3">
-      <%= a.label 'Application Date' %>
-      <%= a.datetime_field :application_date, class: 'form-control', placeholder: 'Application Date' %>
+      <%= a.label Applicant.human_attribute_name(:created_at) %>
+      <%= a.datetime_field :application_date, class: 'form-control', placeholder: "#{Applicant.human_attribute_name(:created_at)}" %>
     </div>
   <% end %>
 

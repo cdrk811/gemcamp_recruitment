@@ -1,15 +1,15 @@
 <div class="flex-title">
-  <h3>Batch Management</h3>
-  <%= link_to 'New', new_batch_path, class: 'btn-sm btn btn-primary' %>
+  <h3><%= "#{Batch.model_name.human} #{t('view.common.management')}" %></h3>
+  <%= link_to t('view.common.new'), new_batch_path, class: 'btn-sm btn btn-primary' %>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
     <tr>
-      <th>Batch Number</th>
-      <th>Status</th>
-      <th>Action</th>
+      <th><%= Batch.human_attribute_name(:number) %></th>
+      <th><%= Batch.human_attribute_name(:status) %></th>
+      <th><%= t('view.common.action') %></th>
     </tr>
     </thead>
     <tbody>
@@ -23,8 +23,13 @@
           </span>
         </td>
         <td>
-          <%= link_to 'Edit', edit_batch_path(batch), class: 'btn-sm btn btn-success' %>
-          <%= link_to 'Delete', batch_path(batch), data: { 'turbo-method': :delete, 'turbo_confirm': t('view.common.delete_confirm') }, class: 'btn-sm btn btn-danger' %>
+          <%= link_to t('view.common.edit'),
+                      edit_batch_path(batch),
+                      class: 'btn-sm btn btn-success' %>
+          <%= link_to t('view.common.delete'),
+                      batch_path(batch),
+                      data: { 'turbo-method': :delete, 'turbo_confirm': t('view.common.delete_confirm') },
+                      class: 'btn-sm btn btn-danger' %>
         </td>
       </tr>
     <% end %>
