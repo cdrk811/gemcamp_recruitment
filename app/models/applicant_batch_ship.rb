@@ -2,6 +2,9 @@ class ApplicantBatchShip < ApplicationRecord
   belongs_to :applicant
   belongs_to :batch
   has_one :interview, class_name: 'Phase::Interview'
+  has_one :pre_class_schedule, class_name: 'Phase::PreClassSchedule'
+  has_one :pre_class_result, class_name: 'Phase::PreClassResult'
+  has_one :gem_camp, class_name: 'Phase::GemCamp'
 
   accepts_nested_attributes_for :interview
 

@@ -1,0 +1,21 @@
+<% column = params[:column]&.to_sym %>
+<%= turbo_frame_tag dom_id(@pre_class_result, column) do %>
+  <%= form_with model: @pre_class_result, url: pre_class_result_path(@pre_class_result, column: column),
+                method: :put, data: { turbo: false }, html: { class: 'form' } do |f| %>
+    <div class="modal-body">
+      <div class="form-group">
+        <% if column == :date_attended %>
+          <%= f.datetime_field :date_attended, class: 'form-control' %>
+        <% elsif [:commute_duration, :repository].include?(column) %>
+          <%= f.text_field column, class: 'form-control', placeholder: Phase::PreClassResult.human_attribute_name(column) %>
+        <% else %>
+          <%= f.text_area column, rows: '3', class: 'form-control', placeholder: Phase::PreClassResult.human_attribute_name(column) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="modal-footer mt-2">
+      <%= link_to 'Cancel', pre_class_results_path, class: 'btn-sm btn btn-danger me-2' %>
+      <%= f.submit t('view.common.save'), class: 'btn-sm btn btn-primary' %>
+    </div>
+  <% end %>
+<% end %>

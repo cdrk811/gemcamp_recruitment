@@ -1,6 +1,7 @@
 <div class="flex-title" data-controller="tooltip">
   <h3>Applicant Details</h3>
   <%= link_to t('view.common.new'), new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
+  <%= link_to 'Pre Class Schedules', pre_class_schedules_path(batch_id: @batch.id), class: 'btn-sm btn btn-secondary' %>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

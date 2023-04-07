@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_30_050812) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_05_060017) do
   create_table "applicant_batch_ships", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "application_date"
     t.string "sourcing_channel"
@@ -47,6 +47,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_050812) do
     t.index ["interview_id"], name: "index_call_logs_on_interview_id"
   end
 
+  create_table "gem_camps", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "pre_class_date"
+    t.integer "letter_type", default: 0
+    t.integer "signed_via", default: 0
+    t.datetime "sent_at"
+    t.datetime "reply_at"
+    t.string "status"
+    t.text "notes"
+    t.bigint "applicant_batch_ship_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_batch_ship_id"], name: "index_gem_camps_on_applicant_batch_ship_id"
+  end
+
   create_table "interviews", charset: "utf8mb4", force: :cascade do |t|
     t.string "status"
     t.string "remarks"
@@ -55,6 +69,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_050812) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["applicant_batch_ship_id"], name: "index_interviews_on_applicant_batch_ship_id"
+  end
+
+  create_table "pre_class_results", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "date_attended"
+    t.string "repository"
+    t.text "remarks"
+    t.string "result"
+    t.text "proctor_note"
+    t.string "commute_duration"
+    t.bigint "applicant_batch_ship_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_batch_ship_id"], name: "index_pre_class_results_on_applicant_batch_ship_id"
+  end
+
+  create_table "pre_class_schedules", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "sent_at"
+    t.datetime "reply_at"
+    t.datetime "date"
+    t.string "status"
+    t.text "notes"
+    t.bigint "applicant_batch_ship_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_batch_ship_id"], name: "index_pre_class_schedules_on_applicant_batch_ship_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

@@ -2,6 +2,7 @@
 
 class BatchApplicantsController < ApplicationController
   before_action :set_batch_applicant, except: %i[index new create]
+  before_action :set_batch, only: %i[index new create]
 
   def index
     @batch_applicants = ApplicantBatchShip.includes(:applicant, :batch, interview: :call_logs).show_to_home
@@ -10,13 +11,11 @@ class BatchApplicantsController < ApplicationController
 
   def new
     @applicant = Applicant.new
-    @batch = Batch.open_status
     @applicant.applicant_batch_ships.build
   end
 
   def create
     @applicant = Applicant.new(params_applicant)
-    @batch = Batch.open_status
     if @applicant.save
       flash[:notice] = t('.notice')
       redirect_to user_root_path
@@ -71,6 +70,10 @@ class BatchApplicantsController < ApplicationController
   end
 
   private
+
+  def set_batch
+    @batch = Batch.open_status
+  end
 
   def set_batch_applicant
     @batch_applicant = ApplicantBatchShip.find(params[:id])

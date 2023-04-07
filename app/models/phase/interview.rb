@@ -9,8 +9,8 @@ class Phase::Interview < ApplicationRecord
     state :pending, initial: true
     state :passed, :declined, :failed
 
-    event :pass do
-      transitions from: :pending, to: :passed
+    event :pass, before: :fill_interview_date do
+      transitions from: :pending, to: :passed, success: :generate_pre_class_schedule!
     end
 
     event :decline, before: :fill_interview_date do
@@ -29,6 +29,10 @@ class Phase::Interview < ApplicationRecord
   end
 
   def fill_interview_date
-    self.interview_date = DateTime.current
+    self.interview_date = DateTime.current if interview_date.blank?
+  end
+
+  def generate_pre_class_schedule!
+    applicant_batch_ship.build_pre_class_schedule.save!
   end
 end
