@@ -4,6 +4,20 @@
   <%= link_to Phase::PreClassSchedule.model_name.human(count: 2), pre_class_schedules_path(batch_id: @batch.id), class: 'btn-sm btn btn-secondary' %>
 </div>
 <br>
+<%= form_with url: user_root_path, method: :get, class: 'border rounded d-flex flex-wrap w-100 my-3 p-3' do %>
+  <div class="d-flex align-items-center mx-3 mb-1">
+    <%= label_tag :status, "#{Phase::Interview.human_attribute_name(:status)}：", class: 'me-2' %>
+    <%= collection_check_boxes nil, :status, Phase::Interview.aasm.states_for_select, :last, :first,
+                               { checked: params[:status] || Phase::Interview.aasm.states.map(&:name) } do |b| %>
+      <div class="me-2">
+        <%= b.check_box %>
+        <%= b.label class: 'ms-1 font-bold' %>
+      </div>
+    <% end %>
+  </div>
+  <%= submit_tag t('view.common.search'), class: 'btn btn-primary align-self-center mb-1' %>
+<% end %>
+<br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
@@ -11,8 +25,8 @@
       <th><%= Applicant.human_attribute_name(:name) %></th>
       <th><%= Applicant.human_attribute_name(:contact_no) %></th>
       <th><%= Applicant.human_attribute_name(:email) %></th>
-      <th><%= Applicant.human_attribute_name(:created_at) %></th>
-      <th><%= Applicant.human_attribute_name(:interview_date) %></th>
+      <th><%= ApplicantBatchShip.human_attribute_name(:application_date) %></th>
+      <th><%= Phase::Interview.human_attribute_name(:interview_date) %></th>
       <th><%= Phase::Interview.human_attribute_name(:status) %></th>
       <th><%= CallLog.model_name.human(count: 2) %></th>
       <th><%= Phase::Interview.human_attribute_name(:remarks) %></th>
