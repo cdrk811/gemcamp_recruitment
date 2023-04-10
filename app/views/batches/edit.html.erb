@@ -2,7 +2,7 @@
 <%= render 'form', batch: @batch,
            url: batch_path,
            method: :patch,
-           submit_text: 'Update' %>
+           submit_text: t('view.common.update') %>
 <p>
-  <%= link_to 'Back', batches_path, class: 'btn btn-secondary' %>
+  <%= link_to t('view.common.back'), batches_path, class: 'btn btn-secondary' %>
 </p>

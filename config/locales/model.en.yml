@@ -4,47 +4,77 @@ en:
       applicant:
         one: Applicant
         other: Applicants
-      user:
-        one: User
-        other: Users
-      batch:
-        one: Batch
-        other: Batches
       applicant_batch_ship:
         one: Applicant Batch
         other: Applicant Batches
-      interview:
-        one: Interview
-        other: Interview
+      batch:
+        one: Batch
+        other: Batches
       call_log:
         one: Call Log
         other: Call Logs
+      phase/gem_camp:
+        one: Gem Camp
+        other: Gem Camps
+      phase/interview:
+        one: Interview
+        other: Interview
+      phase/pre_class_result:
+        one: Pre Class Result
+        other: Pre Class Results
+      phase/pre_class_schedule:
+        one: Pre Class Schedule
+        other: Pre Class Schedules
+      user:
+        one: User
+        other: Users
     attributes:
       applicant:
         name: Name
-        phone: Phone
+        contact_no: Contact No.
         created_at: Application Date
-        interview_date: Interview Date
         email: Email
+        interview_date: Interview/Text Date
+      applicant_batch_ship:
+        application_date: Application Date
+        resume_link: Resume Link
+        sourcing_channel: Sourcing Channel
       batch:
         number: Batch No.
         status: Status
       batch/status:
-        open: Open
         close: Close
-      applicant_batch_ship:
-        application_date: Application Date
-        sourcing_channel: Sourcing Channel
-        resume_link: Resume Link
+        open: Open
       call_log:
-        remarks: Remarks
         interview_date: Interview Date
-      interview:
+        remarks: Remarks
+      phase/gem_camp:
+        letter_type: Letter Type
+        notes: Notes
+        pre_class_date: Pre Class Date
+        reply_at: Reply At
+        sent_at: Sent At
+        signed_via: Signed Via
         status: Status
-        remarks: Remarks
+      phase/interview:
         interview_date: Interview Date
-      interview/status:
-        pending: Pending
-        passed: Passed
+        remarks: Remarks
+        status: Status
+      phase/interview/status:
         declined: Declined
         failed: Failed
+        passed: Passed
+        pending: Pending
+      phase/pre_class_result:
+        commute_duration: Commute Duration
+        date_attended: Date Attended
+        proctor_note: Proctor Notes
+        remarks: Remarks
+        repository: Repository
+        result: Result
+      phase/pre_class_schedule:
+        notes: Notes
+        pre_class_date: Pre Class Date
+        reply_at: Reply At
+        sent_at: Sent At
+        status: Status

@@ -1,22 +1,22 @@
 <div class="flex-title" data-controller="tooltip">
-  <h3>Applicant Details</h3>
+  <h3><%= "#{Applicant.model_name.human} #{t('view.common.details')}" %></h3>
   <%= link_to t('view.common.new'), new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
-  <%= link_to 'Pre Class Schedules', pre_class_schedules_path(batch_id: @batch.id), class: 'btn-sm btn btn-secondary' %>
+  <%= link_to Phase::PreClassSchedule.model_name.human(count: 2), pre_class_schedules_path(batch_id: @batch.id), class: 'btn-sm btn btn-secondary' %>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
     <tr>
-      <th>Name</th>
-      <th>Contact No.</th>
-      <th>Email</th>
-      <th>Application Date</th>
-      <th>Interview/Text Date</th>
-      <th>Status</th>
-      <th>Call Logs</th>
-      <th>Remarks</th>
-      <th>Sourcing Channel</th>
+      <th><%= Applicant.human_attribute_name(:name) %></th>
+      <th><%= Applicant.human_attribute_name(:contact_no) %></th>
+      <th><%= Applicant.human_attribute_name(:email) %></th>
+      <th><%= Applicant.human_attribute_name(:created_at) %></th>
+      <th><%= Applicant.human_attribute_name(:interview_date) %></th>
+      <th><%= Phase::Interview.human_attribute_name(:status) %></th>
+      <th><%= CallLog.model_name.human(count: 2) %></th>
+      <th><%= Phase::Interview.human_attribute_name(:remarks) %></th>
+      <th><%= ApplicantBatchShip.human_attribute_name(:sourcing_channel) %></th>
     </tr>
     </thead>
     <tbody>
@@ -25,7 +25,8 @@
       <tr>
         <td>
           <%= link_to batch_applicant.applicant.name, batch_applicant.resume_link, target: '_blank' %>
-          <%= link_to 'Application Record', applicant_batches_path(batch_applicant.applicant),
+          <%= link_to t('view.common.application_record'),
+                      applicant_batches_path(batch_applicant.applicant),
                       class: 'badge bg-primary' if batch_applicant.applicant.batches.size > 1 %>
         </td>
         <td><%= batch_applicant.applicant.phone %></td>
@@ -37,13 +38,19 @@
           <%= interview.interview_date&.strftime('%B %d, %Y') %>
         </td>
         <td>
-          <%= interview.status %>
+          <%= Phase::Interview.human_attribute_name("status.#{interview.status}") %>
           <div class="btn-group">
-            <%= button_to "Pass", pass_batch_applicant_path(batch_applicant), method: :put,
+            <%= button_to t('view.common.pass'),
+                          pass_batch_applicant_path(batch_applicant),
+                          method: :put,
                           class: 'btn-sm btn btn-success rounded-pill me-2' if interview.may_pass? %>
-            <%= button_to "Decline", decline_batch_applicant_path(batch_applicant), method: :put,
+            <%= button_to t('view.common.decline'),
+                          decline_batch_applicant_path(batch_applicant),
+                          method: :put,
                           class: 'btn-sm btn btn-warning rounded-pill me-2' if interview.may_decline? %>
-            <%= button_to "Fail", fail_batch_applicant_path(batch_applicant), method: :put,
+            <%= button_to t('view.common.fail'),
+                          fail_batch_applicant_path(batch_applicant),
+                          method: :put,
                           class: 'btn-sm btn btn-danger rounded-pill' if interview.may_fail? %>
           </div>
         </td>
@@ -88,7 +95,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
-              <%= link_to 'Add Remarks', edit_batch_applicant_path(batch_applicant), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.add')} #{Phase::Interview.human_attribute_name(:remarks) }",
+                          edit_batch_applicant_path(batch_applicant),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>

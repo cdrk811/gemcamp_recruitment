@@ -1,19 +1,19 @@
 <div class="flex-title">
-  <h3>Pre Class Schedules</h3>
+  <h3><%= Phase::PreClassSchedule.model_name.human(count: 2) %></h3>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
     <tr>
-      <th>Name</th>
-      <th>Contact No.</th>
-      <th>Email</th>
-      <th>Sent At</th>
-      <th>Reply At</th>
-      <th>Status</th>
-      <th>Pre Class Date</th>
-      <th>Notes</th>
+      <th><%= Applicant.human_attribute_name(:name) %></th>
+      <th><%= Applicant.human_attribute_name(:contact_no) %></th>
+      <th><%= Applicant.human_attribute_name(:email) %></th>
+      <th><%= Phase::PreClassSchedule.human_attribute_name(:sent_at) %></th>
+      <th><%= Phase::PreClassSchedule.human_attribute_name(:reply_at) %></th>
+      <th><%= Phase::PreClassSchedule.human_attribute_name(:status) %></th>
+      <th><%= Phase::PreClassSchedule.human_attribute_name(:pre_class_date) %></th>
+      <th><%= Phase::PreClassSchedule.human_attribute_name(:notes) %></th>
     </tr>
     </thead>
     <tbody>
@@ -34,7 +34,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(pre_class_schedule, :sent_at) do %>
-              <%= link_to 'Select Sent At', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :sent_at), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{Phase::PreClassSchedule.human_attribute_name(:sent_at)}",
+                          edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :sent_at),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
@@ -47,16 +49,22 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(pre_class_schedule, :reply_at) do %>
-              <%= link_to 'Select Reply At', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :reply_at), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{Phase::PreClassSchedule.human_attribute_name(:reply_at)}",
+                          edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :reply_at),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
         <td>
-          <%= pre_class_schedule.status %>
+          <%= Phase::PreClassSchedule.human_attribute_name("status.#{pre_class_schedule.status}") %>
           <div class="btn-group">
-            <%= button_to 'Confirm', confirm_pre_class_schedule_path(pre_class_schedule), method: :put,
+            <%= button_to t('view.common.confirm'),
+                          confirm_pre_class_schedule_path(pre_class_schedule),
+                          method: :put,
                           class: 'btn-sm btn btn-success rounded-pill me-2' if pre_class_schedule.may_confirm? %>
-            <%= button_to 'Decline', decline_pre_class_schedule_path(pre_class_schedule), method: :put,
+            <%= button_to t('view.common.decline'),
+                          decline_pre_class_schedule_path(pre_class_schedule),
+                          method: :put,
                           class: 'btn-sm btn btn-warning rounded-pill me-2' if pre_class_schedule.may_decline? %>
           </div>
         </td>
@@ -69,7 +77,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(pre_class_schedule, :date) do %>
-              <%= link_to 'Select Date', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :date), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.select')} #{t('view.common.date')}",
+                          edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :date),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
@@ -82,7 +92,9 @@
             <% end %>
           <% else %>
             <%= turbo_frame_tag dom_id(pre_class_schedule, :notes) do %>
-              <%= link_to 'Add Note', edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :notes), class: 'btn-sm btn btn-success' %>
+              <%= link_to "#{t('view.common.add')} #{Phase::PreClassSchedule.human_attribute_name(:notes)}",
+                          edit_pre_class_schedule_path(id: pre_class_schedule.id, column: :notes),
+                          class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>

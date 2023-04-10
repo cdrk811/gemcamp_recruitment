@@ -12,27 +12,27 @@
       <ul class="member_management">
         <li>
           <%= link_to applicants_path, class: 'btn btn-dark w-100 text-start' do %>
-            <span>Applicant Management</span>
+            <span><%= "#{Applicant.model_name.human} #{t('view.common.management')}" %></span>
           <% end %>
         </li>
         <li>
           <%= link_to batches_path, class: 'btn btn-dark w-100 text-start' do %>
-            <span>Batch Management</span>
+            <span><%= "#{Batch.model_name.human} #{t('view.common.management')}" %></span>
           <% end %>
         </li>
         <li>
           <%= link_to pre_class_schedules_path, class: 'btn btn-dark w-100 text-start' do %>
-            <span>Pre Class Schedule Management</span>
+            <span><%= "#{Phase::PreClassSchedule.model_name.human} #{t('view.common.management')}" %></span>
           <% end %>
         </li>
         <li>
           <%= link_to pre_class_results_path, class: 'btn btn-dark w-100 text-start' do %>
-            <span>Pre Class Result Management</span>
+            <span><%= "#{Phase::PreClassResult.model_name.human} #{t('view.common.management')}" %></span>
           <% end %>
         </li>
         <li>
           <%= link_to gem_camps_path, class: 'btn btn-dark w-100 text-start' do %>
-            <span>Gem Camp Management</span>
+            <span><%= "#{Phase::GemCamp.model_name.human} #{t('view.common.management')}" %></span>
           <% end %>
         </li>
       </ul>

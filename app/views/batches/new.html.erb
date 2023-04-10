@@ -2,7 +2,7 @@
 <%= render 'form', batch: @batch,
            url: batches_path,
            method: :post,
-           submit_text: 'Create' %>
+           submit_text: t('view.common.create') %>
 <p>
-  <%= link_to 'Back', batches_path, class: 'btn btn-secondary' %>
+  <%= link_to t('view.common.back'), batches_path, class: 'btn btn-secondary' %>
 </p>

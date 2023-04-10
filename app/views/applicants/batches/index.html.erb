@@ -1,21 +1,21 @@
 <div class="flex-title" data-controller="tooltip">
-  <h3>Applicant Batch Details</h3>
+  <h3><%= "#{Applicant.model_name.human} #{Batch.model_name.human} #{t('view.common.details')}" %></h3>
 </div>
 <br>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
     <tr>
-      <th>Batch No.</th>
-      <th>Name</th>
-      <th>Contact No.</th>
-      <th>Email</th>
-      <th>Application Date</th>
-      <th>Interview/Text Date</th>
-      <th>Status</th>
-      <th>Call Logs</th>
-      <th>Remarks</th>
-      <th>Sourcing Chanel</th>
+      <th><%= Batch.human_attribute_name(:number) %></th>
+      <th><%= Applicant.human_attribute_name(:name) %></th>
+      <th><%= Applicant.human_attribute_name(:contact_no) %></th>
+      <th><%= Applicant.human_attribute_name(:email) %></th>
+      <th><%= Applicant.human_attribute_name(:created_at) %></th>
+      <th><%= Applicant.human_attribute_name(:interview_date) %></th>
+      <th><%= Phase::Interview.human_attribute_name(:status) %></th>
+      <th><%= CallLog.model_name.human(count: 2) %></th>
+      <th><%= Phase::Interview.human_attribute_name(:remarks) %></th>
+      <th><%= ApplicantBatchShip.human_attribute_name(:sourcing_channel) %></th>
     </tr>
     </thead>
     <tbody>

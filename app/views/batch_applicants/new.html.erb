@@ -2,7 +2,7 @@
 <%= render 'form', applicant: @applicant,
            url: batch_applicants_path,
            method: :post,
-           submit_text: 'Create' %>
+           submit_text: t('view.common.create') %>
 <p>
-  <%= link_to 'Back', user_root_path, class: 'btn btn-secondary' %>
+  <%= link_to t('view.common.back'), user_root_path, class: 'btn btn-secondary' %>
 </p>
