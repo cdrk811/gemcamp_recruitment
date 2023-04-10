@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_05_060017) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_07_052607) do
   create_table "applicant_batch_ships", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "application_date"
-    t.string "sourcing_channel"
+    t.string "sourcing_channel", default: "[]"
     t.string "resume_link"
     t.bigint "applicant_id"
     t.bigint "batch_id"

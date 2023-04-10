@@ -32,9 +32,8 @@ en:
       applicant:
         name: Name
         contact_no: Contact No.
-        created_at: Application Date
+        created_at: Created At
         email: Email
-        interview_date: Interview/Text Date
       applicant_batch_ship:
         application_date: Application Date
         resume_link: Resume Link

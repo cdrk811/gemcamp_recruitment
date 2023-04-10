@@ -22,8 +22,13 @@ en:
       pass: Pass
       reply_date: Reply Date
       save: Save
+      search: Search
       select: Select
       send_date: Send Date
       shortlist: Shortlist
       sign_method: Sign Method
       update: Update
+    sourcing_channel_list:
+      facebook: Facebook
+      rails_website: Admin Rails Website
+      indeed: Indeed

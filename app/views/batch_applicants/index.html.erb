@@ -1,9 +1,32 @@
 <div class="flex-title" data-controller="tooltip">
   <h3><%= "#{Applicant.model_name.human} #{t('view.common.details')}" %></h3>
-  <%= link_to t('view.common.new'), new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
-  <%= link_to Phase::PreClassSchedule.model_name.human(count: 2), pre_class_schedules_path(batch_id: @batch.id), class: 'btn-sm btn btn-secondary' %>
+  <% if @batch %>
+    <%= link_to "#{t('view.common.new')} #{Applicant.model_name.human}",
+                new_batch_applicant_path, class: 'btn-sm btn btn-primary' %>
+    <%= link_to Phase::PreClassSchedule.model_name.human(count: 2),
+                pre_class_schedules_path(batch_id: @batch.id),
+                class: 'btn-sm btn btn-secondary' %>
+  <% else %>
+    <%= link_to "#{t('view.common.new')} #{Batch.model_name.human}", new_batch_path, class: 'btn-sm btn btn-primary' %>
+  <% end %>
 </div>
 <br>
+<% if @batch %>
+  <%= form_with url: user_root_path, method: :get, class: 'border rounded d-flex flex-wrap w-100 my-3 p-3' do %>
+    <div class="d-flex align-items-center mx-3 mb-1">
+      <%= label_tag :status, "#{Phase::Interview.human_attribute_name(:status)}：", class: 'me-2' %>
+      <%= collection_check_boxes nil, :status, Phase::Interview.aasm.states_for_select, :last, :first,
+                                 { checked: params[:status] || Phase::Interview.aasm.states.map(&:name) } do |b| %>
+        <div class="me-2">
+          <%= b.check_box %>
+          <%= b.label class: 'ms-1 font-bold' %>
+        </div>
+      <% end %>
+    </div>
+    <%= submit_tag t('view.common.search'), class: 'btn btn-primary align-self-center mb-1' %>
+  <% end %>
+  <br>
+<% end %>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="table table-bordered table-striped table-hover text-center">
     <thead>
@@ -11,8 +34,8 @@
       <th><%= Applicant.human_attribute_name(:name) %></th>
       <th><%= Applicant.human_attribute_name(:contact_no) %></th>
       <th><%= Applicant.human_attribute_name(:email) %></th>
-      <th><%= Applicant.human_attribute_name(:created_at) %></th>
-      <th><%= Applicant.human_attribute_name(:interview_date) %></th>
+      <th><%= ApplicantBatchShip.human_attribute_name(:application_date) %></th>
+      <th><%= Phase::Interview.human_attribute_name(:interview_date) %></th>
       <th><%= Phase::Interview.human_attribute_name(:status) %></th>
       <th><%= CallLog.model_name.human(count: 2) %></th>
       <th><%= Phase::Interview.human_attribute_name(:remarks) %></th>
@@ -32,10 +55,34 @@
         <td><%= batch_applicant.applicant.phone %></td>
         <td><%= batch_applicant.applicant.email %></td>
         <td>
-          <%= batch_applicant.application_date&.strftime('%B %d, %Y') %>
+          <% if batch_applicant.application_date&.present? %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :application_date) do %>
+              <%= link_to edit_batch_applicant_path(id: batch_applicant.id, column: :application_date) do %>
+                <%= batch_applicant.application_date&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :application_date) do %>
+              <%= link_to "#{t('view.common.select')} #{ApplicantBatchShip.human_attribute_name(:application_date)}",
+                          edit_batch_applicant_path(id: batch_applicant.id, column: :application_date),
+                          class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
         </td>
         <td>
-          <%= interview.interview_date&.strftime('%B %d, %Y') %>
+          <% if interview.interview_date&.present? %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :interview_date) do %>
+              <%= link_to edit_batch_applicant_path(id: batch_applicant.id, column: :interview_date) do %>
+                <%= interview.interview_date&.strftime('%B %d, %Y') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :interview_date) do %>
+              <%= link_to "#{t('view.common.select')} #{ApplicantBatchShip.human_attribute_name(:interview_date)}",
+                          edit_batch_applicant_path(id: batch_applicant.id, column: :interview_date),
+                          class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
         </td>
         <td>
           <%= Phase::Interview.human_attribute_name("status.#{interview.status}") %>
@@ -83,7 +130,7 @@
         <td>
           <% if interview.remarks.present? %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
-              <%= link_to edit_batch_applicant_path(batch_applicant) do %>
+              <%= link_to edit_batch_applicant_path(batch_applicant, column: :remarks) do %>
                 <% if interview.remarks.length > 16 %>
                   <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%= interview.remarks %>">
                     <%= interview.remarks[0, 14] %>...
@@ -96,18 +143,34 @@
           <% else %>
             <%= turbo_frame_tag dom_id(batch_applicant, :remarks) do %>
               <%= link_to "#{t('view.common.add')} #{Phase::Interview.human_attribute_name(:remarks) }",
-                          edit_batch_applicant_path(batch_applicant),
+                          edit_batch_applicant_path(batch_applicant, column: :remarks),
                           class: 'btn-sm btn btn-success' %>
             <% end %>
           <% end %>
         </td>
-        <td><%= batch_applicant.sourcing_channel %></td>
+        <td>
+          <% if batch_applicant.sourcing_channel.present? %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :sourcing_channel) do %>
+              <%= link_to edit_batch_applicant_path(batch_applicant, column: :sourcing_channel) do %>
+                <%= batch_applicant.sourcing_channel.join(',') %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= turbo_frame_tag dom_id(batch_applicant, :sourcing_channel) do %>
+              <%= link_to "#{t('view.common.add')} #{ApplicantBatchShip.human_attribute_name(:sourcing_channel)}",
+                          edit_batch_applicant_path(batch_applicant, column: :sourcing_channel),
+                          class: 'btn-sm btn btn-success' %>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
 
       <%= render 'batch_applicants/add_call_logs', call_log: @call_log, batch_applicant: batch_applicant %>
       <% if call_logs.present? %>
         <%= render 'batch_applicants/update_call_logs', batch_applicant: batch_applicant, call_logs: call_logs, call_log: call_logs.last %>
       <% end %>
+    <% end.empty? and begin %>
+      <tr><td colspan="9" class="fw-bold">- NO DATA -</td></tr>
     <% end %>
     </tbody>
   </table>
